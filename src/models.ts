@@ -27,8 +27,39 @@ export type AddressModel = {
   updatedAt?: Date;
 };
 
+export type ContactModel = {
+  contactId: string;
+  contactValue: string;
+  contactType: string;
+}
+
 export type ProfileAddressModel = {
   profileId: string;
   addressId: string;
   isDefault: string;
+}
+
+export type UserModel = {
+  id: string;
+  name: string;
+  username: string;
+  email: string;
+}
+
+export type CommentModel = {
+  postId: string;
+  id: string;
+  body: string;
+}
+
+export type PostModel = {
+  userId: string;
+  id: string;
+  title: string;
+}
+
+export type TodoModel = {
+  userId: string;
+  id: string;
+  title: string;
 }

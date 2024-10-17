@@ -10,7 +10,11 @@ const config: CodegenConfig = {
         mappers: {
           Profile: "./models#ProfileModel",
           Address: "./models#AddressModel",
-          ProfileAddressMap: "./models#ProfileAddressModel"
+          ProfileAddressMap: "./models#ProfileAddressModel",
+          User: "./models#UserModel",
+          PostT: "./models#PostModel",
+          Comment: "./models#CommentModel",
+          Todo: "./models#TodoModel",
         },
       },
     },

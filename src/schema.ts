@@ -4,6 +4,8 @@ export const typeDefs = gql`
   # Query to fetch profile and related address by profileId
   type Query {
     getProfileWithAddress(profileId: ID!): ProfileWithAddressResponse!
+    getProfile(profileId: ID!): Profile!
+    getUserDetails(id: ID!): User!
   }
 
   # Mutation to create both profile and address
@@ -41,6 +43,8 @@ export const typeDefs = gql`
     email: String!
     dateOfBirth: String!
     status: String!
+    address: [Address!]!
+    contacts: [Contact!]!
   }
 
   # Address type definition
@@ -57,6 +61,41 @@ export const typeDefs = gql`
     longitude: String
   }
 
+  type Contact {
+    contactId: ID!
+    contactValue: String!
+    contactType: String!
+  }
+
+  type User {
+    id: ID!
+    name: String!
+    username: String!
+    email: String!
+    todos: [Todo!]!
+    posts: [PostT!]!
+  }
+
+  type Comment {
+    postId: ID!
+    id: ID!
+    body: String!
+  }
+  
+  type PostT {
+    userId: ID!
+    id: ID!
+    title: String!
+    comments: [Comment!]!
+  }
+
+  type Todo {
+    userId: ID!
+    id: ID!
+    title: String!
+  }
+  
+
   # ProfileAddressMap type definition
   type ProfileAddressMap {
     profileId: ID!
@@ -65,6 +104,10 @@ export const typeDefs = gql`
   
   type ProfileAddressMapResponse {
     addressId: ID!
+  }
+
+  type ProfileContactMapResponse {
+    contactId: ID!
   }
 
   # Input type for creating a profile

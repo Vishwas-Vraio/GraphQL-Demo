@@ -45,6 +45,12 @@ export const resolvers: Resolvers = {
         };
       }
     },
+    getProfile: async (_, { profileId }, { dataSources}) => {
+      return await dataSources.profileAPI.getProfile(profileId);
+    },
+    getUserDetails: async(_, { id }, { dataSources }) => {
+      return await dataSources.userAPI.getUser(id);
+    }
   },
 
   Mutation: {
@@ -106,4 +112,49 @@ export const resolvers: Resolvers = {
   //     return dataSources.addressAPI.getAddress(addressId);
   //   },
   // },
+
+  Profile: {
+    // Whenever Address is requested, it will be resolved here
+    address: async ({ profileId }, _, { dataSources }) => {
+      const addressIdList = await dataSources.profileAddressMapAPI.getProfileAddressMap(profileId)
+      const addresses = await Promise.all(
+        addressIdList.map(async (map) => {
+          return await dataSources.addressAPI.getAddress(map.addressId);
+        })
+      );
+      return addresses;
+    },
+    contacts: async ({ profileId }, _, { dataSources }) => {
+      const contactIdList = await dataSources.profileContactMapAPI.getProfileContactMap(profileId)
+      const contacts = await Promise.all(
+        contactIdList.map(async (map) => {
+          return await dataSources.contactAPI.getContact(map.contactId);
+        })
+      );
+      return contacts;
+    },
+  },
+
+  User: {
+    todos: async ({ id }, _, { dataSources }) => {
+      return await dataSources.todoAPI.getTodo(id);
+    },
+    posts: async ({ id }, _, { dataSources }) => {
+      const posts =  await dataSources.postAPI.getPost(id);
+      return posts;
+    },
+    
+  },
+
+  PostT: {
+    comments: async ({ id }, _, { dataSources }) => {
+      return await dataSources.commentAPI.getComment(id);
+    }
+  }
+  // Contact: {
+  //   contactType: () => {
+  //     return "VISHWAS";
+  //   }
+  // }
+
 };
